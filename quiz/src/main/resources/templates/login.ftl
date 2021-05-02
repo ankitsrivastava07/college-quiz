@@ -1,5 +1,4 @@
 <!------ Include the above in your HEAD tag ---------->
-<form id="login-form" method="post" name="login-form">
 <div class="modal show" tabindex="-1" role="dialog"  id="popup-modal" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -10,14 +9,14 @@
         </button>
       </div>
            <div class="modal-body">
-          
+          <form id="login-form" method="post" name="login-form">
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">Email ID / Username </label>
             <input type="text" class="form-control" maxlength="100" class="form-control error" name="email" id="email" Placeholder="Enter your email/username" aria-invalid="true" autocomplete=off >
           </div>
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">Password</label>
-            <input type="password" maxlength="40" class="form-control" class="form-control error" name="password" id="password" Placeholder="Enter your password" aria-invalid="true" id="password" >
+            <input type="password" maxlength="20" class="form-control" class="form-control error" name="password" id="password" Placeholder="Enter your password" aria-invalid="true" id="password" >
           </div>
         
       </div>
@@ -30,4 +29,8 @@
  </div>
 </div>
 </form>     
+
+<div class="alert alert-danger" role="alert">
+  This is a danger alert—check it out!
+</div>
  

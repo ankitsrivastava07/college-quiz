@@ -17,12 +17,14 @@
  <!--  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">-->
 
   <!-- Vendor CSS Files -->
+  <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
    <link href="assets/vendor/icofont/icofont.min.css" rel="stylesheet"> 
   <!-- <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet"> -->
   <link href="assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
   <link href="assets/vendor/venobox/venobox.css" rel="stylesheet">
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  
  <script src="assets/vendor/jquery/jquery.min.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
@@ -103,6 +105,21 @@ margin-bottom: 13px;
     color: #4a90e2;
 }
 
+.alert-danger{
+background-color: #fdf6f6;
+    border-color: #de7575;
+    color: #c20707;
+}
+
+.alert{
+    padding: 10px;
+    /* margin-bottom: 20px; */
+    /* border: 1px solid transparent; */
+    border-radius: 4px;
+    text-size-adjust: auto;
+    font-size: 14px;
+    text-align: center;
+}
 </style>
 
 <body>

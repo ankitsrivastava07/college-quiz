@@ -15,29 +15,23 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
-import users.service.UserDetailServiceImpl;
+import users.service.UserAuthenticationProviderImpl;
 
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	UserDetailServiceImpl userDetailSeruviceImpl;
-
-	public void configureGlobal(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-
-		authenticationManagerBuilder.userDetailsService(userDetailSeruviceImpl);
-	}
+	UserAuthenticationProviderImpl userAuthenticationProviderImpl;
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 
-		http.csrf().disable();
-		http.authorizeRequests().antMatchers("/college-quiz/login").permitAll().anyRequest().authenticated().and()
-				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
-		http.formLogin();
-		http.httpBasic();
 		http.cors();
+		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		http.authorizeRequests().antMatchers("/college-quiz/login").permitAll().anyRequest().authenticated();
+		http.httpBasic();
+		http.formLogin();
+		http.csrf().disable();
 	}
 
 	@Bean

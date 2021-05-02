@@ -1,14 +1,13 @@
 package users.dao;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import lombok.Data;
 import users.dao.repository.UserRepository;
 
 @Repository
-@Data
 public class UserDaoImpl implements UserDao {
 
+	@Autowired
 	private UserRepository userRepository;
 
 	@Override

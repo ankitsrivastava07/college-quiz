@@ -49,18 +49,22 @@ $(document).ready(function() {
 		submitHandler: function(data) {
 
 			var formData = {
-				"username": "ankit",
-				"password": "ankit"
+
+				"userName": $("#email").val(),
+				"password": $("#password").val()
 			}
-			var auth = "Basic " + formData.usname + ":" + formData.password;
-			
+
 			$.ajax({
 				type: "POST",
 				url: "http://localhost:8081/college-quiz/login",
 				contentType: "application/json",
 				data: JSON.stringify(formData),
 				success: function(response) {
-					alert("Successfully added" + response.tocken)
+
+					$(".alert").remove();
+					
+					if (!response.status)
+						$("#login-form").prepend(("<div class='alert alert-danger' role='alert'>" + response.message + "</div>"));
 				},
 				error: function(error) {
 					alert("Something went wrong  please try again later")
