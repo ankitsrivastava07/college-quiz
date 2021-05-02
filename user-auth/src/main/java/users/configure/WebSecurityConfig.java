@@ -31,14 +31,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable();
 
-		http.authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-				.antMatchers("/quiz-application/login").permitAll().anyRequest().authenticated().and()
+		http.csrf().disable();
+		http.authorizeRequests().antMatchers("college-quiz/login").permitAll().anyRequest().authenticated().and()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
 		http.formLogin();
 		http.httpBasic();
+		http.cors();
 	}
 
 	@Bean

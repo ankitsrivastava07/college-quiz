@@ -54,13 +54,9 @@ $(document).ready(function() {
 			}
 			var auth = "Basic " + formData.usname + ":" + formData.password;
 			
-
 			$.ajax({
 				type: "POST",
-				url: "http://localhost:8081/quiz-application/login",
-				headers: {
-					"Authorization": auth
-				},
+				url: "http://localhost:8081/college-quiz/login",
 				contentType: "application/json",
 				data: JSON.stringify(formData),
 				success: function(response) {
