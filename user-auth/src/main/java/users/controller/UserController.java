@@ -17,7 +17,7 @@ import users.configure.JwtTokenUtil;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("quiz-application")
+@RequestMapping("college-quiz")
 public class UserController {
 
 	private AuthenticationManager authenticationManager;
