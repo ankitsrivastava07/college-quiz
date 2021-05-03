@@ -128,7 +128,6 @@ float: right;
     color: #000;
     text-shadow: 0 1px 0 #fff;
     cursor: pointer;
-  color: #069;
 }
 
 </style>
