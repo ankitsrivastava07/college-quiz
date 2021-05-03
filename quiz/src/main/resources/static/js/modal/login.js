@@ -55,6 +55,7 @@ $(document).ready(function() {
 			}
 
 			$.ajax({
+			
 				type: "POST",
 				url: "http://localhost:8081/college-quiz/login",
 				contentType: "application/json",
@@ -84,6 +85,7 @@ function loginPopClose() {
 	$(document).ready(function() {
 
 		$('#login-form').trigger("reset");
+		$(".alert").remove();
 
 		$('#popup-modal').on('hidden.bs.modal', function() {
 			$("#popup-modal").validate().resetForm();

@@ -17,7 +17,6 @@
  <!--  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">-->
 
   <!-- Vendor CSS Files -->
-  <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
    <link href="assets/vendor/icofont/icofont.min.css" rel="stylesheet"> 
   <!-- <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet"> -->
@@ -117,11 +116,22 @@ background-color: #fdf6f6;
     /* border: 1px solid transparent; */
     border-radius: 4px;
     text-size-adjust: auto;
-    font-size: 14px;
+    font-size: 13px;
     text-align: center;
 }
-</style>
 
+.close{
+float: right;
+    font-size: 1.9rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    cursor: pointer;
+  color: #069;
+}
+
+</style>
 <body>
 
 <#include "login.ftl">

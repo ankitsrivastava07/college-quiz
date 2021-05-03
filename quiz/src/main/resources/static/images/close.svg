@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+    <defs>
+        <filter id="Path_2452" width="48" height="48" x="0" y="0" filterUnits="userSpaceOnUse">
+            <feOffset dy="4"/>
+            <feGaussianBlur result="blur" stdDeviation="4"/>
+            <feFlood flood-opacity=".4"/>
+            <feComposite in2="blur" operator="in"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+        <style>
+            .cls-2{fill:none}
+        </style>
+    </defs>
+    <g id="Group_3624" transform="translate(-816 -908)">
+        <g id="Ellipse_398" fill="none" stroke="#707070" transform="translate(830 917)">
+            <ellipse cx="10" cy="11" stroke="none" rx="10" ry="11"/>
+            <ellipse cx="10" cy="11" class="cls-2" rx="9.5" ry="10.5"/>
+        </g>
+        <g id="cancel-24px" transform="translate(826 914)">
+            <path id="Path_2451" d="M0 0h28v28H0z" class="cls-2"/>
+            <g filter="url(#Path_2452)" transform="translate(-10 -6)">
+                <path id="Path_2452-2" fill="#fff" d="M14 2a12 12 0 1 0 12 12A11.989 11.989 0 0 0 14 2zm6 16.308L18.308 20 14 15.692 9.692 20 8 18.308 12.308 14 8 9.692 9.692 8 14 12.308 18.308 8 20 9.692 15.692 14z" transform="translate(10 6)"/>
+            </g>
+        </g>
+    </g>
+</svg>
