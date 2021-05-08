@@ -1,21 +1,24 @@
 package users.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.ArrayList;
+import java.util.Objects;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import lombok.AllArgsConstructor;
+import users.exceptionHandle.InvalidCredentialException;
 
 @Component
+@AllArgsConstructor
 public class UserAuthenticationProviderImpl implements AuthenticationProvider {
 
-	@Autowired
 	private UserService userService;
 
-	@Autowired
-	PasswordEncoder passwordEncoder;
+	private PasswordEncoder passwordEncoder;
 
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -23,9 +26,15 @@ public class UserAuthenticationProviderImpl implements AuthenticationProvider {
 		String username = authentication.getName();
 		String password = authentication.getCredentials().toString();
 
-		userService.findByUserName(username);
+		String userName = userService.findByUserNameAndPassword(username, password);
 
-		return new UsernamePasswordAuthenticationToken("ankit", "ankit");
+		if (Objects.isNull(userName)) {
+			throw new InvalidCredentialException("Invalid username/email and password which you have provided");
+		}
+
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		
+		return new UsernamePasswordAuthenticationToken(username, password, new ArrayList<>());
 
 	}
 

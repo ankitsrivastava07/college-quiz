@@ -16,8 +16,8 @@ public class GlobalExceptionHandle {
 	@Autowired
 	private HttpServletRequest path;
 
-	@ExceptionHandler(UserNameNotFoundException.class)
-	public ResponseEntity<?> userNameNotFound(UserNameNotFoundException exception) {
+	@ExceptionHandler(UserNameOrEmailNotFoundException.class)
+	public ResponseEntity<?> userNameNotFound(UserNameOrEmailNotFoundException exception) {
 
 		/*
 		 * ApiError apiError = new ApiError(new Date(), HttpStatus.OK.value(),

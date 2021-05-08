@@ -2,6 +2,9 @@ package users.dao;
 
 public interface UserDao {
 
-	String findByUserName(String userName);
+	String findByUserNameAndPassword(String username, String password);
 
+	Boolean isUserBlocked(String username);
+
+	String findByUserName(String username);
 }

@@ -1,5 +1,6 @@
 package users.dao.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,9 +17,11 @@ public class UserEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private String userName;
 	private String email;
 	private String password;
+	@Column(name = "is_blocked",columnDefinition = "boolean default false")
+	private Boolean isBlocked;
 
 }

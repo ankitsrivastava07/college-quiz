@@ -25,6 +25,7 @@
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
   
  <script src="assets/vendor/jquery/jquery.min.js"></script>
+ <script src="js/jquery.cookie.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
@@ -129,6 +130,11 @@ float: right;
     text-shadow: 0 1px 0 #fff;
     cursor: pointer;
 }
+
+.modal{
+display:none;
+}
+
 
 </style>
 <body>

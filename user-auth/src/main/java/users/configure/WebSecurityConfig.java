@@ -1,59 +1,79 @@
 
 package users.configure;
 
+import java.util.Arrays;
+import java.util.Collections;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-
-import users.service.UserAuthenticationProviderImpl;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 
 @EnableWebSecurity
+
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	UserAuthenticationProviderImpl userAuthenticationProviderImpl;
+	AuthenticationProvider authenticationProvider;
+
+	@Autowired
+	JWTTockenValidatorFilter jWTTockenValidatorFilter;
+
+	@Autowired
+	JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+
+	@Autowired
+	JWTTockenGeneratorFilter jWTTockenGeneratorFilter;
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 
-		http.cors();
-		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		http.authorizeRequests().antMatchers("/college-quiz/login").permitAll().anyRequest().authenticated();
-		http.httpBasic();
-		http.formLogin();
+		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().cors()
+
+				.configurationSource(new CorsConfigurationSource() {
+
+					@Override
+					public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
+						CorsConfiguration config = new CorsConfiguration();
+						config.setAllowedOrigins(Collections.singletonList("http://localhost:8080"));
+						config.setAllowedMethods(Collections.singletonList("*"));
+						config.setAllowedHeaders(Collections.singletonList("*"));
+						config.setExposedHeaders(Arrays.asList("Authorization"));
+						config.setMaxAge(36000l);
+						return config;
+					}
+				}).and().authorizeRequests().antMatchers("/college-quiz/login").permitAll().anyRequest().authenticated()
+				.and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint);
+
+		http.addFilterBefore(jWTTockenValidatorFilter, UsernamePasswordAuthenticationFilter.class);
+		http.addFilterAfter(jWTTockenGeneratorFilter, UsernamePasswordAuthenticationFilter.class);
 		http.csrf().disable();
 	}
+
+	/*
+	 * @Override public void configure(AuthenticationManagerBuilder auth) throws
+	 * Exception {
+	 * 
+	 * auth.authenticationProvider(authenticationProvider); }
+	 */
 
 	@Bean
 	@Override
 	public AuthenticationManager authenticationManagerBean() throws Exception {
 		return super.authenticationManagerBean();
-	}
-
-	@Override
-	public void configure(AuthenticationManagerBuilder auth) {
-
-		InMemoryUserDetailsManager user = new InMemoryUserDetailsManager();
-
-		UserDetails userDetails = User.withUsername("ankit").password("ankit").authorities("user").build();
-		user.createUser(userDetails);
-
-		try {
-			auth.userDetailsService(user);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	@Bean
