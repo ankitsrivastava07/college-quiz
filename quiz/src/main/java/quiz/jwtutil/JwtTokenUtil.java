@@ -1,5 +1,5 @@
 
-package users.configure;
+package quiz.jwtutil;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -10,7 +10,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
-@Component("jwtTockenUtil")
+@Component("jwtTocken")
 public class JwtTokenUtil {
 
 	public static final long JWT_TOKEN_VALIDITY = 60 * 60 * 1;
@@ -51,7 +51,7 @@ public class JwtTokenUtil {
 				.signWith(SignatureAlgorithm.HS512, secret).compact();
 	}
 
-	public Boolean validateToken(String token, String username) {
-		return (username.equals(username) && !isTokenExpired(token));
+	public Boolean validateToken(String token) {
+		return isTokenExpired(token);
 	}
 }

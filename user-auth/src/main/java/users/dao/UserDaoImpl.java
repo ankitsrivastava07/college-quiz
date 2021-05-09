@@ -13,12 +13,14 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public String findByUserNameAndPassword(String username, String password) {
 
-		return userRepository.findByUserNameAndPassword(username, password);
+		return userRepository.findByUserNameAndPassword(username.toLowerCase(), password);
 	}
 
 	@Override
 	public Boolean isUserBlocked(String username) {
-		return userRepository.isUserBlocked(username);
+		Boolean flag = userRepository.isUserBlocked(username);
+
+		return userRepository.isUserBlocked(username.toLowerCase());
 	}
 
 	@Override

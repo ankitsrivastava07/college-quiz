@@ -44,80 +44,17 @@ $(document).ready(function() {
 				required: "Please enter your password",
 			},
 		},
-		onclick: true,
-
-		submitHandler: function(data) {
-
-			var tocken = ""
+		submitHandler: function(form) {
 
 			var formData = {
 
 				"userName": $("#email").val(),
 				"password": $("#password").val()
 			}
-			loginPopClose1(formData);
-
-			$.ajax({
-
-				type: "POST",
-				url: "http://localhost:8081/college-quiz/login",
-				contentType: "application/json",
-				data: JSON.stringify(formData),
-				beforeSend: function(request) {
-					tocken = $.cookie('session_Tocken');
-					request.setRequestHeader("Authorization", tocken);
-				},
-				success: function(response, status, xhr) {
-
-					$(".alert").remove();
-
-					if (!status == 'success')
-						$("#login-form").prepend(("<div class='alert alert-danger' role='alert'>" + response.message + "</div>"));
-
-					if (xhr.status == 200) {
-						if (!!$.cookie('session_Tocken')) {
-							tocken = $.cookie('session_Tocken');
-							alert('cookies ' + tocken)
-						}
-						else {
-							var tocken = $.cookie('session_Tocken', xhr.getResponseHeader('Authorization'), { expires: 1 });
-							//Cookies.set('session_Tocken', response.tocken);
-
-						}
-					}
-
-				},
-				error: function(error) {
-					alert("Something went wrong  please try again later")
-					//loginPopClose();
-					//$('.modal').modal('hide');
-
-				}
-			})
-
+			login(formData);
 		}
-	});
-
-});
-
-function loginPopClose1(formData) {
-	tocken = $.cookie('session_Tocken') == undefined ? null : $.cookie('session_Tocken');
-
-	$.ajax({
-
-		type: "POST",
-		url: "http://localhost:8081/college-quiz/login1",
-		contentType: "application/json",
-		data: JSON.stringify(formData),
-		beforeSend: function(request) {
-			request.setRequestHeader("Authorization", tocken);
-		}, success: function(response, status, xhr) {
-
-			alert('hh');
-		}
-
 	})
-}
+})
 
 function loginPopClose() {
 
@@ -131,16 +68,64 @@ function loginPopClose() {
 		});
 	});
 }
-/*$(document).ready(function() {
 
-	$('#login-form').trigger("reset");
-	$('#popup-modal').on('hidden.bs.modal', function(e) {
+function login(formData) {
 
-		$('#popup-modal').on('hidden.bs.modal', function() {
-			var $alertas = $('#login-form');
-			$alertas.validate().resetForm();
-			//$alertas.find('.error').removeClass('error');
-		});
+	if ($("#login-form").valid()) {
 
-	})
-});*/
+		$.ajax({
+
+			type: "POST",
+			url: "/login",
+			contentType: "application/json",
+			data: JSON.stringify(formData),
+			beforeSend: function(request) {
+				$(".alert").remove();
+				token = $.cookie('session_Tocken');
+				request.setRequestHeader("Authorization", token);
+			},
+			success: function(response, status, xhr) {
+
+				$(".alert").remove();
+
+				if (!response.status) {
+					//	$("#login-form").prepend(("<div class='alert alert-danger' role='alert'>" + response.message + "</div>"));
+
+					setTimeout(function() {
+						$(".modal-body").prepend(("<div class='alert alert-danger' role='alert'>" + response.message + "</div>"));
+					}, 500);
+
+				}
+				if (response.status == true) {
+					if (!!$.cookie('session_Tocken')) {
+					$(".modal-body").prepend(("<div class='alert alert-success' role='alert'>" + response.message+ "  Tocken created in cookies"+ "</div>"));
+						token = $.cookie('session_Tocken', response.token);
+						
+						setTimeout(function() {
+						$(".alert").remove();
+					}, 4000);
+						
+						
+					}
+					else {
+						var token = $.cookie('session_Tocken', xhr.getResponseHeader('Authorization'), { expires: 1 });
+						$.cookie('session_Tocken', response.token);
+						alert(response.token)
+					}
+				}
+
+			},
+			complete: function(response) {
+
+				},
+				 rror: function(error) {
+				alert("Something went wrong  please try again later")
+				//loginPopClose();
+				//$('.modal').modal('hide');
+
+			}
+		})
+	}
+	return false;
+}
+

@@ -117,7 +117,7 @@ background-color: #fdf6f6;
     /* border: 1px solid transparent; */
     border-radius: 4px;
     text-size-adjust: auto;
-    font-size: 13px;
+    font-size: 14px;
     text-align: center;
 }
 
@@ -135,6 +135,9 @@ float: right;
 display:none;
 }
 
+#loginButton{
+border: #4a90e2;
+}
 
 </style>
 <body>

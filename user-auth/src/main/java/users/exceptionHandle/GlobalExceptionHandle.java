@@ -8,6 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import lombok.Builder;
 import users.controller.LoginStatus;
 
 @ControllerAdvice
@@ -25,6 +28,28 @@ public class GlobalExceptionHandle {
 		 */
 		LoginStatus loginStatus = new LoginStatus();
 
+		loginStatus.setStatus(Boolean.FALSE);
+		loginStatus.setMessage(exception.getMessage());
+
+		return new ResponseEntity<>(loginStatus, HttpStatus.OK);
+	}
+
+	@ExceptionHandler(InvalidCredentialException.class)
+	public ResponseEntity<?> invalidCredential(InvalidCredentialException exception) {
+
+		LoginStatus loginStatus = new LoginStatus();
+		loginStatus.setStatus(Boolean.FALSE);
+		loginStatus.setMessage(exception.getMessage());
+
+		return new ResponseEntity<>(loginStatus, HttpStatus.OK);
+		// "Invalid uername or password";
+
+	}
+
+	@ExceptionHandler(UserBlockedException.class)
+	public ResponseEntity<?> userBlocked(UserBlockedException exception) {
+
+		LoginStatus loginStatus = new LoginStatus();
 		loginStatus.setStatus(Boolean.FALSE);
 		loginStatus.setMessage(exception.getMessage());
 

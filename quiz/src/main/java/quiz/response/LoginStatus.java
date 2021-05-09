@@ -1,4 +1,4 @@
-package users.controller;
+package quiz.response;
 
 import lombok.Data;
 
